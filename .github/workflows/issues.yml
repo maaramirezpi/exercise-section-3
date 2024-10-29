@@ -2,6 +2,7 @@ name: Running on issues
 on: issues
 jobs:
   issue:
+    runs-on: ubuntu-latest
     steps:
       - name: Output
         run: echo "${{ toJson(github)}}"
