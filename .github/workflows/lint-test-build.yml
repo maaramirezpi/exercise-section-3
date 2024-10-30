@@ -1,10 +1,10 @@
-name: Lint, test and Build
+name: Deploy Website
 on: 
-  pull_request: 
-    types: [opened]
-  workflow_dispatch: 
+  push: 
+    branches: 
+      - main
 jobs:
-  lint-test-build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -17,9 +17,20 @@ jobs:
         run: npm run lint
       - name: Test
         run: npm run test
-      - name: Build
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+        uses: actions/checkout@v3
+      - name: Install dependencies
+        run: npm ci
+      - name: Build website
         run: npm run build
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy
         run: echo "Deploying..."
       
-        
