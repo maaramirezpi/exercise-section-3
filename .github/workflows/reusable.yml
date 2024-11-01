@@ -2,7 +2,7 @@ name: Reusable
 on: 
   workflow_call:
     inputs:
-      arctifact-name:
+      artifact-name:
         description: The name of the artifact
         required: true
         default: dist
